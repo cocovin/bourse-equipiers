@@ -5,6 +5,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/css/
 /web/robots.txt
 
 # Mac Stuff
