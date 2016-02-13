@@ -2,3 +2,7 @@
 - name: Install git
   sudo: yes
   apt: name=git-core state=present
+
+- name: Install Sass
+  sudo: yes
+  apt: name=ruby-sass state=present
