@@ -1,0 +1,24 @@
+# ************************************
+# Managed by Ansible
+# Do not change this file directly
+# ************************************
+
+<VirtualHost *:80>
+  ServerName {{ server_name }}
+  DocumentRoot {{ document_root }}
+
+  <Directory {{ document_root }}>
+    Options -Indexes
+    AllowOverride All
+
+    Require all granted
+  </Directory>
+
+  ## Logging
+  ErrorLog ${APACHE_LOG_DIR}/{{ project_host }}_error.log
+  CustomLog ${APACHE_LOG_DIR}/{{ project_host }}_access.log combined
+
+  LogLevel warn
+  ServerSignature Off
+
+</VirtualHost>

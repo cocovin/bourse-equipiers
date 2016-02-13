@@ -1,0 +1,15 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    server_name: bourse-equipiers.local
+    document_root: /vagrant/web
+    project_host: bourse-equipiers
+  pre_tasks:
+    - name: update apt cache
+      apt: update_cache=yes
+  roles:
+    - webserver
+    - database
+    - utils
+    - xdebug

@@ -1,0 +1,17 @@
+/app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/*
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
+/web/robots.txt
+
+# Mac Stuff
+.DS_STORE
+
+# IDE stuff
+.idea
+
+# Vagrant stuff
+.vagrant
