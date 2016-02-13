@@ -6,6 +6,7 @@
 /vendor/
 /web/bundles/
 /web/css/
+/web/js/
 /web/robots.txt
 
 # Mac Stuff
