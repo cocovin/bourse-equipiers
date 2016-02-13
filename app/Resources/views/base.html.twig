@@ -57,6 +57,14 @@
                 </footer>
             {% endblock %}
         {% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        {% block javascripts %}
+            {% javascripts
+            '@AppBundle/Resources/assets/vendor/jquery/jquery.min.js'
+            '@AppBundle/Resources/assets/vendor/bootstrap/assets/javascripts/bootstrap.min.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>
