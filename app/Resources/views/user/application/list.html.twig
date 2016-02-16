@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <table class="table">
+        <caption>Liste de candidatures.</caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Motivation</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+                <tr>
+                    <th scope="row">{{ application.id }}</th>
+                    <td>{{ application.firstName }}</td>
+                    <td>{{ application.name }}</td>
+                    <td>{{ application.email }}</td>
+                    <td>{{ application.message }}</td>
+                    <td>{{ application.createdAt|date }}</td>
+                    <td>{{ application.status }}</td>
+                    <td>
+                        <a href="" class="btn btn-success">Inviter</a>
+                        {% if application.status == 'pending' %}
+                            <a href="{{ path('application_reject', {'id': application.id}) }}" class="btn btn-danger">Refuser</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

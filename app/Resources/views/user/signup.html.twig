@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Inscription</h1>
+            <p class="alert alert-danger">
+                Les inscriptions sont sur candidature. Veuillez remplir le formulaire ci dessous pour candidater.
+            </p>
+            <div class="form">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

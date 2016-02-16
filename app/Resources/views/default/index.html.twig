@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block body_attributes %}class="home"{% endblock %}
-
 {% block content %}
-    <h1>Bourse des equipiers</h1>
+    <h1>Bienvenue sur la bourse aux équipiers du YCH</h1>
+    <div>
+        <p>Trouvez des équipiers avec qui naviguer. Trouvez des skippers qui recherchent des équipiers.</p>
+    </div>
+
+    <div>
+        <a href="{{ path('signup') }}" class="btn btn-primary">Inscription</a>
+    </div>
 {% endblock %}
