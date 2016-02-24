@@ -3,16 +3,40 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Application;
-use AppBundle\Form\ApplicationType;
+use AppBundle\Entity\User;
+use AppBundle\Form\User\ApplicationType;
+
+use AppBundle\Form\User\SignupType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class UserController extends Controller
 {
     /**
-     * @Route("/inscription", name="signup")
+     * @Route("/connexion", name="login")
+     */
+    public function loginAction()
+    {
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render(
+            'user/login.html.twig',
+            array(
+                'last_username' => $lastUsername,
+                'error'         => $error,
+            )
+        );
+    }
+
+    /**
+     * @Route("/candidater", name="apply")
      */
     public function signupAction(Request $request)
     {
@@ -48,31 +72,39 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/admin/applications", name="applications")
+     * @Route("/inscription/{token}", name="signup")
      */
-    public function applicationsAction()
+    public function acceptInvitationAction(Application $application, Request $request)
     {
-        $applications = $this->getDoctrine()->getRepository('AppBundle:Application')->findAll();
+        $user = new User();
 
-        return $this->render('user/application/list.html.twig', array(
-            'applications' => $applications
+        $user->setFirstName($application->getFirstName());
+        $user->setLastName($application->getLastName());
+
+        $form = $this->createForm(SignupType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+
+            // On sauve en base
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+
+            return new RedirectResponse($this->generateUrl('homepage'));
+        }
+
+        return $this->render('user/signup.html.twig', array(
+            'user' => $user,
+            'form' => $form->createView(),
         ));
-    }
-
-    /**
-     * @Route("/admin/application/{id}/reject", name="application_reject")
-     */
-    public function applicationsRejectAction($id)
-    {
-        $application = $this->getDoctrine()->getRepository('AppBundle:Application')->find($id);
-
-        $application->setStatus(Application::STATUS_REJECTED);
-
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($application);
-        $em->flush();
-
-        return $this->redirectToRoute('applications');
     }
 }

@@ -14,6 +14,7 @@ use DateTime;
  */
 class Application
 {
+    const STATUS_NEW = 'new';
     const STATUS_PENDING = 'pending';
     const STATUS_ACCEPTED = 'accepted';
     const STATUS_REJECTED = 'rejected';
@@ -39,7 +40,7 @@ class Application
      *
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $lastName;
 
     /**
      * @var string
@@ -63,6 +64,13 @@ class Application
     private $status;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     */
+    protected $token;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -71,7 +79,7 @@ class Application
 
     public function __construct()
     {
-        $this->status = self::STATUS_PENDING;
+        $this->status = self::STATUS_NEW;
         $this->createdAt = new \DateTime();
     }
 
@@ -110,17 +118,17 @@ class Application
     /**
      * @return string
      */
-    public function getName()
+    public function getLastName()
     {
-        return $this->name;
+        return $this->lastName;
     }
 
     /**
-     * @param string $name
+     * @param string $lastName
      */
-    public function setName($name)
+    public function setLastName($lastName)
     {
-        $this->name = $name;
+        $this->lastName = $lastName;
     }
 
     /**
@@ -185,5 +193,21 @@ class Application
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $inviteToken
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 }

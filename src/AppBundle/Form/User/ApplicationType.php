@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\User;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,7 +13,7 @@ class ApplicationType extends AbstractType
     {
         $builder
             ->add('firstName')
-            ->add('name')
+            ->add('lastName')
             ->add('email')
             ->add('message', TextareaType::class)
             ->add('save', SubmitType::class)

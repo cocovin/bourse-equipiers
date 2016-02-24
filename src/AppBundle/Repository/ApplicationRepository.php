@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Application;
 
 /**
  * ApplicationRepository
@@ -10,4 +11,12 @@ namespace AppBundle\Repository;
  */
 class ApplicationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findNew()
+    {
+        return $this->findBy(array(
+            'status' => Application::STATUS_NEW
+        ), array(
+            'createdAt' => 'DESC'
+        ));
+    }
 }

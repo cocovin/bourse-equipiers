@@ -11,7 +11,6 @@
                 <th>Email</th>
                 <th>Motivation</th>
                 <th>Date</th>
-                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -20,15 +19,14 @@
                 <tr>
                     <th scope="row">{{ application.id }}</th>
                     <td>{{ application.firstName }}</td>
-                    <td>{{ application.name }}</td>
+                    <td>{{ application.lastName }}</td>
                     <td>{{ application.email }}</td>
                     <td>{{ application.message }}</td>
                     <td>{{ application.createdAt|date }}</td>
-                    <td>{{ application.status }}</td>
                     <td>
-                        <a href="" class="btn btn-success">Inviter</a>
-                        {% if application.status == 'pending' %}
-                            <a href="{{ path('application_reject', {'id': application.id}) }}" class="btn btn-danger">Refuser</a>
+                        {% if application.status == 'new' %}
+                            <a href="{{ path('admin_application_accept', {'id': application.id}) }}" class="btn btn-success">Inviter</a>
+                            <a href="{{ path('admin_application_reject', {'id': application.id}) }}" class="btn btn-danger">Refuser</a>
                         {% endif %}
                     </td>
                 </tr>

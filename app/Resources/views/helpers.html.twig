@@ -1,0 +1,7 @@
+{% macro alert(messageType, catchLine, message, errors) %}
+    <div class="alert alert-{{ messageType|default('info') }} alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+        <strong>{{ catchLine }}</strong> {{ message|raw }}
+    </div>
+{% endmacro %}

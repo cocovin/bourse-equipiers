@@ -1,0 +1,19 @@
+{% block main_messages %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        {{ helpers.alert('success', 'Bravo!', flashMessage|trans) }}
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        {{ helpers.alert('info', 'Merci!', flashMessage|trans) }}
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        {{ helpers.alert('warning', 'Attention!', flashMessage|trans) }}
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        {{ helpers.alert('danger', 'Oups!', flashMessage|trans) }}
+    {% endfor %}
+
+    {% do app.session.flashbag.clear() %}
+{% endblock main_messages %}

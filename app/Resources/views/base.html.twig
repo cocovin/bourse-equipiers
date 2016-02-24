@@ -31,12 +31,18 @@
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    <a href="#">Connexion</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('signup') }}">Inscription</a>
-                                </li>
+                                {% if app.user %}
+                                    <li>
+                                        <a href="{{ path('logout') }}">Logout</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{{ path('login') }}">Connexion</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('apply') }}">Inscription</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -44,6 +50,18 @@
             {% endblock %}
 
             <div class="container">
+                {% import 'helpers.html.twig' as helpers %}
+
+                {% block flashMessages %}
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <div id="main-messages">
+                                {% embed 'messages.html.twig' %}{% endembed %}
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+
                 {% block content %}
                 {% endblock %}
             </div>
